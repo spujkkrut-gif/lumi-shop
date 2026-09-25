@@ -47,9 +47,8 @@
             <span class="text-xs text-zinc-500 font-medium">Оновлюється автоматично</span>
         </div>
 
-        <!-- Сюди скрипт завантажить товари з content/products.json -->
+        <!-- Сюди скрипт завантажить товари -->
         <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Завантаження... -->
             <div class="col-span-full py-12 text-center text-zinc-500 text-sm">
                 Завантаження товарів...
             </div>
@@ -81,9 +80,9 @@
         </div>
     </footer>
 
-    <!-- Скрипт автоматичного завантаження товарів із Decap CMS (products.json) -->
+    <!-- Скрипт автоматичного завантаження товарів із правильним шляхом -->
     <script>
-        fetch('./content/products.json')
+        fetch('./content/products')
             .then(response => {
                 if (!response.ok) throw new Error('Не вдалося завантажити файл товарів');
                 return response.json();
@@ -92,13 +91,11 @@
                 const container = document.getElementById('products-container');
                 if (!container) return;
 
-                // Перевіряємо чи є товари у масиві items
                 if (!data.items || data.items.length === 0) {
                     container.innerHTML = '<div class="col-span-full py-12 text-center text-zinc-500 text-sm">Поки що немає доступних товарів.</div>';
                     return;
                 }
                 
-                // Рендеримо картки товарів
                 container.innerHTML = data.items.map(product => `
                     <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-4 flex flex-col justify-between hover:border-zinc-700 transition group">
                         <div>
@@ -119,7 +116,7 @@
                 console.error('Помилка завантаження товарів:', err);
                 const container = document.getElementById('products-container');
                 if (container) {
-                    container.innerHTML = '<div class="col-span-full py-12 text-center text-red-400 text-sm">Помилка завантаження каталогу. Перевірте наявність файлу products.json.</div>';
+                    container.innerHTML = '<div class="col-span-full py-12 text-center text-red-400 text-sm">Помилка завантаження каталогу. Перевірте шлях до файлу.</div>';
                 }
             });
     </script>
