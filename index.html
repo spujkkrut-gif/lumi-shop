@@ -40,17 +40,28 @@
         </div>
     </section>
 
-    <!-- Каталог товарів (Динамічний блок) -->
+    <!-- Каталог товарів -->
     <section id="catalog" class="py-16 px-6 max-w-7xl mx-auto">
         <div class="flex items-center justify-between mb-10">
             <h2 class="text-2xl font-black tracking-tight">Каталог товарів</h2>
-            <span class="text-xs text-zinc-500 font-medium">Оновлюється автоматично</span>
+            <span class="text-xs text-zinc-500 font-medium">Головна колекція</span>
         </div>
 
-        <!-- Сюди скрипт завантажить товари -->
+        <!-- Сітка товарів -->
         <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="col-span-full py-12 text-center text-zinc-500 text-sm">
-                Завантаження товарів...
+            <!-- Картка товару (Худі) -->
+            <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-4 flex flex-col justify-between hover:border-zinc-700 transition group">
+                <div>
+                    <div class="bg-zinc-900 h-64 rounded-xl mb-4 overflow-hidden relative flex items-center justify-center p-2">
+                        <img src="./images/1000062003.png" alt="Худі" class="w-full h-full object-contain group-hover:scale-105 transition duration-500">
+                    </div>
+                    <h3 class="font-bold text-base mb-1">Худі</h3>
+                    <p class="text-xs text-zinc-400 mb-4 line-clamp-2">Зручне стильне худі з капюшоном.</p>
+                </div>
+                <div class="flex items-center justify-between pt-4 border-t border-zinc-900">
+                    <span class="text-lg font-black">200 zł</span>
+                    <a href="#contact" class="bg-zinc-800 hover:bg-white hover:text-zinc-950 text-white text-xs font-bold px-4 py-2 rounded-lg transition">Купити</a>
+                </div>
             </div>
         </div>
     </section>
@@ -79,46 +90,5 @@
             </div>
         </div>
     </footer>
-
-    <!-- Скрипт автоматичного завантаження товарів із правильним шляхом -->
-    <script>
-        fetch('./content/products')
-            .then(response => {
-                if (!response.ok) throw new Error('Не вдалося завантажити файл товарів');
-                return response.json();
-            })
-            .then(data => {
-                const container = document.getElementById('products-container');
-                if (!container) return;
-
-                if (!data.items || data.items.length === 0) {
-                    container.innerHTML = '<div class="col-span-full py-12 text-center text-zinc-500 text-sm">Поки що немає доступних товарів.</div>';
-                    return;
-                }
-                
-                container.innerHTML = data.items.map(product => `
-                    <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-4 flex flex-col justify-between hover:border-zinc-700 transition group">
-                        <div>
-                            <div class="bg-zinc-900 h-64 rounded-xl mb-4 overflow-hidden relative flex items-center justify-center p-2">
-                                <img src="${product.image || ''}" alt="${product.titleUA || 'Товар'}" class="w-full h-full object-contain group-hover:scale-105 transition duration-500">
-                            </div>
-                            <h3 class="font-bold text-base mb-1">${product.titleUA || ''}</h3>
-                            <p class="text-xs text-zinc-400 mb-4 line-clamp-2">${product.descUA || ''}</p>
-                        </div>
-                        <div class="flex items-center justify-between pt-4 border-t border-zinc-900">
-                            <span class="text-lg font-black">${product.price || 0} zł</span>
-                            <a href="#contact" class="bg-zinc-800 hover:bg-white hover:text-zinc-950 text-white text-xs font-bold px-4 py-2 rounded-lg transition">Купити</a>
-                        </div>
-                    </div>
-                `).join('');
-            })
-            .catch(err => {
-                console.error('Помилка завантаження товарів:', err);
-                const container = document.getElementById('products-container');
-                if (container) {
-                    container.innerHTML = '<div class="col-span-full py-12 text-center text-red-400 text-sm">Помилка завантаження каталогу. Перевірте шлях до файлу.</div>';
-                }
-            });
-    </script>
 </body>
 </html>
