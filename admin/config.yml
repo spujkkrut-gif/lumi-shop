@@ -1,21 +1,19 @@
-backend:
-  name: git-gateway
-  branch: main
-
-media_folder: "images"
-public_folder: "/images"
-
 collections:
-  - name: "products"
-    label: "Товари"
-    folder: "content/products"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Назва (UA)", name: "titleUA", widget: "string"}
-      - {label: "Назва (EN)", name: "titleEN", widget: "string"}
-      - {label: "Опис (UA)", name: "descUA", widget: "text"}
-      - {label: "Опис (EN)", name: "descEN", widget: "text"}
-      - {label: "Ціна", name: "price", widget: "string"}
-      - {label: "Зображення", name: "image", widget: "image"}
-      - {label: "Бейдж (напр. Limited Drop)", name: "badge", widget: "string", required: false}
+  - name: "shop_data"
+    label: "Магазин"
+    files:
+      - name: "products"
+        label: "Товари"
+        file: "content/products.json"
+        fields:
+          - label: "Список товарів"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Назва (UA)", name: "titleUA", widget: "string"}
+              - {label: "Назва (EN)", name: "titleEN", widget: "string"}
+              - {label: "Опис (UA)", name: "descUA", widget: "text"}
+              - {label: "Опис (EN)", name: "descEN", widget: "text"}
+              - {label: "Ціна", name: "price", widget: "string"}
+              - {label: "Зображення", name: "image", widget: "image"}
+              - {label: "Бейдж", name: "badge", widget: "string", required: false}
