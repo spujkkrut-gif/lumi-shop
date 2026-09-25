@@ -1,3 +1,11 @@
+backend:
+  name: github
+  repo: spujkkrut-gif/lumi-shop
+  branch: main
+
+media_folder: "content/images"
+public_folder: "/images"
+
 collections:
   - name: "catalog"
     label: "Каталог"
