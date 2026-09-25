@@ -1,13 +1,16 @@
 collections:
-  - name: "products"
-    label: "Товари"
-    file: "content/products.json" # Зберігаємо все в один файл
-    fields:
-      - label: "Список товарів"
-        name: "items"
-        widget: "list"
+  - name: "catalog"
+    label: "Каталог"
+    files:
+      - name: "products"
+        label: "Товари"
+        file: "content/products.json"
         fields:
-          - {label: "Назва", name: "titleUA", widget: "string"}
-          - {label: "Ціна", name: "price", widget: "number"}
-          - {label: "Зображення", name: "image", widget: "image"}
-          - {label: "Опис", name: "descUA", widget: "text"}
+          - label: "Список товарів"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Назва", name: "titleUA", widget: "string"}
+              - {label: "Ціна", name: "price", widget: "number"}
+              - {label: "Зображення", name: "image", widget: "image"}
+              - {label: "Опис", name: "descUA", widget: "text"}
