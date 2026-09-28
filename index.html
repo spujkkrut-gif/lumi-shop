@@ -7,7 +7,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-white selection:text-black">
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-white selection:text-black pb-24">
 
     <!-- Шапка (Header) -->
     <header class="fixed top-0 left-0 w-full bg-zinc-950/80 backdrop-blur-md z-50 border-b border-zinc-900">
@@ -69,13 +69,14 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Товар 1 -->
+            <!-- Товар 1: Худі -->
             <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-4 flex flex-col justify-between hover:border-zinc-700 transition group">
                 <div>
                     <div class="bg-zinc-900 h-64 rounded-xl mb-4 overflow-hidden relative flex items-center justify-center p-2">
                         <img src="1000062003.png" alt="Miyabi Quarter-Zip Hoodie" class="w-full h-full object-contain group-hover:scale-105 transition duration-500">
                     </div>
-                    <h3 class="font-bold text-base mb-1">Quarter-Zip Hoodie "Miyabi"</h3>
+                    <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">Худі</span>
+                    <h3 class="font-bold text-base mt-2 mb-1">Quarter-Zip Hoodie "Miyabi"</h3>
                     <p class="text-xs text-zinc-400 mb-4" data-uk="Чорна оверсайз худі з вишивкою" data-en="Black oversize embroidered hoodie">Чорна оверсайз худі з вишивкою</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-zinc-900">
@@ -84,13 +85,14 @@
                 </div>
             </div>
 
-            <!-- Товар 2 -->
+            <!-- Товар 2: Худі -->
             <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-4 flex flex-col justify-between hover:border-zinc-700 transition group">
                 <div>
                     <div class="bg-zinc-900 h-64 rounded-xl mb-4 overflow-hidden relative flex items-center justify-center p-2">
                         <img src="1000062012.png" alt="Samurai White Hoodie" class="w-full h-full object-contain group-hover:scale-105 transition duration-500">
                     </div>
-                    <h3 class="font-bold text-base mb-1">Oversize Hoodie "Samurai"</h3>
+                    <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">Худі</span>
+                    <h3 class="font-bold text-base mt-2 mb-1">Oversize Hoodie "Samurai"</h3>
                     <p class="text-xs text-zinc-400 mb-4" data-uk="Біла худі з принтом самурая" data-en="White hoodie with samurai print">Біла худі з принтом самурая</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-zinc-900">
@@ -99,13 +101,14 @@
                 </div>
             </div>
 
-            <!-- Товар 3 -->
+            <!-- Товар 3: Футболки -->
             <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-4 flex flex-col justify-between hover:border-zinc-700 transition group">
                 <div>
                     <div class="bg-zinc-900 h-64 rounded-xl mb-4 overflow-hidden relative flex items-center justify-center p-2">
                         <img src="1000062007.png" alt="Butterflies T-Shirt" class="w-full h-full object-contain group-hover:scale-105 transition duration-500">
                     </div>
-                    <h3 class="font-bold text-base mb-1">Heavy T-Shirt "Butterflies"</h3>
+                    <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">Футболки</span>
+                    <h3 class="font-bold text-base mt-2 mb-1">Heavy T-Shirt "Butterflies"</h3>
                     <p class="text-xs text-zinc-400 mb-4" data-uk="Чорна футболка з метеликами" data-en="Black t-shirt with butterflies">Чорна футболка з метеликами</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-zinc-900">
@@ -114,13 +117,14 @@
                 </div>
             </div>
 
-            <!-- Товар 4 -->
+            <!-- Товар 4: Джинси -->
             <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-4 flex flex-col justify-between hover:border-zinc-700 transition group">
                 <div>
                     <div class="bg-zinc-900 h-64 rounded-xl mb-4 overflow-hidden relative flex items-center justify-center p-2">
                         <img src="1000062009.jpg" alt="Dark Denim Jeans" class="w-full h-full object-contain group-hover:scale-105 transition duration-500">
                     </div>
-                    <h3 class="font-bold text-base mb-1">Washed Denim "Structure"</h3>
+                    <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">Джинси</span>
+                    <h3 class="font-bold text-base mt-2 mb-1">Washed Denim "Structure"</h3>
                     <p class="text-xs text-zinc-400 mb-4" data-uk="Темні варені оверсайз джинси" data-en="Dark washed oversize denim">Темні варені оверсайз джинси</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-zinc-900">
@@ -154,10 +158,17 @@
         <p data-uk="&copy; 2026 Lumi Shop. Усі права захищені." data-en="&copy; 2026 Lumi Shop. All rights reserved.">&copy; 2026 Lumi Shop. Усі права захищені.</p>
     </footer>
 
+    <!-- СТИЛЬНА ПЛАВАЮЧА DOCK-ПАНЕЛЬ ЗНИЗУ -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 px-4 py-2 rounded-full flex items-center gap-2 shadow-2xl">
+        <a href="#catalog" class="text-xs text-zinc-200 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-zinc-800 font-medium" data-uk="Усе" data-en="All">Усе</a>
+        <a href="#catalog" class="text-xs text-zinc-400 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-zinc-800" data-uk="Худі" data-en="Hoodies">Худі</a>
+        <a href="#catalog" class="text-xs text-zinc-400 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-zinc-800" data-uk="Джинси" data-en="Jeans">Jeans</a>
+        <a href="#catalog" class="text-xs text-zinc-400 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-zinc-800" data-uk="Футболки" data-en="T-Shirts">Футболки</a>
+    </div>
+
     <!-- JavaScript для перемикання мов -->
     <script>
         function setLanguage(lang) {
-            // Змінюємо стиль кнопок перемикача
             const btnUk = document.getElementById('btn-uk');
             const btnEn = document.getElementById('btn-en');
 
@@ -169,7 +180,6 @@
                 btnUk.className = "px-3 py-1 rounded-full text-zinc-400 hover:text-white transition";
             }
 
-            // Знаходимо всі елементи з атрибутами перекладу
             const elements = document.querySelectorAll('[data-uk]');
             elements.forEach(el => {
                 if (lang === 'en') {
@@ -179,7 +189,6 @@
                 }
             });
 
-            // Оновлюємо головний атрибут мови у тега <html>
             document.documentElement.lang = lang;
         }
     </script>
