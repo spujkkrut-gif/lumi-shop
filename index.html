@@ -1,196 +1,533 @@
 <!DOCTYPE html>
-<html lang="uk" class="scroll-smooth">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumi Shop | Streetwear & Minimalist Clothing</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>LUMI.SHOP — Streetwear</title>
+    <style>
+        :root {
+            --bg-color: #0b0b0b;
+            --card-bg: #141414;
+            --text-main: #f5f5f7;
+            --text-muted: #8e8e93;
+            --accent: #d4af37;
+            --border: #26262a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding-bottom: 110px;
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* AI Disclaimer Banner */
+        .ai-disclaimer {
+            background: #1a1a1e;
+            color: #ffcc00;
+            padding: 12px 16px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border);
+            letter-spacing: 0.3px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            position: sticky;
+            top: 0;
+            background: rgba(11, 11, 11, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: var(--text-main);
+        }
+
+        .lang-switch {
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 16px;
+        }
+
+        .products-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            animation: slideUp 0.5s ease backwards;
+        }
+
+        .product-card:hover {
+            border-color: #444;
+            transform: translateY(-3px);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-image-container {
+            width: 100%;
+            height: 420px;
+            background: #111115;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image-container img {
+            transform: scale(1.03);
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #222;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .product-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .product-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .buy-btn {
+            background: var(--text-main);
+            color: var(--bg-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .buy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .buy-btn:hover {
+            background: #e0e0e0;
+        }
+
+        /* Bottom Floating Menu */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(25, 25, 28, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            padding: 6px;
+            border-radius: 30px;
+            display: flex;
+            gap: 4px;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow-x: auto;
+            max-width: 95vw;
+        }
+
+        .nav-item {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-item.active {
+            background: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        /* Футер та контакти */
+        footer.site-footer {
+            margin-top: 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .footer-content {
+            margin-bottom: 20px;
+        }
+
+        .footer-cta-text {
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .social-btn {
+            flex: 1;
+            background: #1e1e24;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            transition: background 0.2s ease, border-color 0.2s ease;
+            display: inline-block;
+        }
+
+        .social-btn:hover {
+            background: #2a2a32;
+            border-color: #555;
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+    </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-white selection:text-black pb-24">
+<body>
 
-    <!-- Шапка (Header) -->
-    <header class="fixed top-0 left-0 w-full bg-zinc-950/80 backdrop-blur-md z-50 border-b border-zinc-900">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="#" class="text-xl font-black tracking-widest uppercase">LUMI<span class="text-zinc-500">.SHOP</span></a>
-            
-            <nav class="hidden md:flex gap-8 text-sm text-zinc-400">
-                <a href="#catalog" class="hover:text-white transition" data-uk="Каталог" data-en="Catalog">Каталог</a>
-                <a href="#about" class="hover:text-white transition" data-uk="Про бренд" data-en="About">Про бренд</a>
-                <a href="#contact" class="hover:text-white transition" data-uk="Контакти" data-en="Contact">Контакти</a>
-            </nav>
+    <!-- Попередження про AI концепт -->
+    <div class="ai-disclaimer" id="aiDisclaimer">
+        ⚠️ Увага: Усі речі та дизайни на сайті є ексклюзивними концептами, згенерованими штучним інтелектом.
+    </div>
 
-            <div class="flex items-center gap-4">
-                <!-- Перемикач мов (Language Switcher) -->
-                <div class="bg-zinc-900 border border-zinc-800 rounded-full p-1 flex text-xs font-bold">
-                    <button id="btn-uk" onclick="setLanguage('uk')" class="px-3 py-1 rounded-full bg-white text-zinc-950 transition">UA</button>
-                    <button id="btn-en" onclick="setLanguage('en')" class="px-3 py-1 rounded-full text-zinc-400 hover:text-white transition">EN</button>
-                </div>
-                <a href="#catalog" class="hidden sm:inline-block bg-white text-zinc-950 text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full hover:bg-zinc-200 transition" data-uk="Обрати річ" data-en="Shop Now">Обрати річ</a>
-            </div>
+    <header>
+        <div class="logo">LUMI.SHOP</div>
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLang('uk')">UA</button>
+            <button class="lang-btn" onclick="setLang('en')">EN</button>
         </div>
     </header>
 
-    <!-- Головний екран (Hero) -->
-    <section class="pt-32 pb-20 md:pt-48 md:pb-32 px-6 border-b border-zinc-900">
-        <div class="max-w-6xl mx-auto text-center">
-            <span class="inline-block bg-zinc-900 text-zinc-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 border border-zinc-800 tracking-wider uppercase" data-uk="Нова колекція 2026" data-en="New Collection 2026">Нова колекція 2026</span>
-            <h1 class="text-4xl md:text-7xl font-black tracking-tight leading-none mb-6" data-uk="Створено для тих, &lt;br&gt;хто задає стиль." data-en="Built for those &lt;br&gt;who set the style.">Створено для тих, <br>хто задає стиль.</h1>
-            <p class="text-zinc-400 text-base md:text-lg max-w-xl mx-auto mb-10" data-uk="Оверсайз крої, щільні преміум матеріали та темна естетика для твого повсякденного луку." data-en="Oversize cuts, heavy premium materials, and dark aesthetics for your daily fit.">Оверсайз крої, щільні преміум матеріали та темна естетика для твого повсякденного луку.</p>
-            <div class="flex justify-center gap-4">
-                <a href="#catalog" class="bg-white text-zinc-950 font-bold px-8 py-3.5 rounded-xl transition hover:bg-zinc-200 shadow-xl" data-uk="Дивитися каталог" data-en="Explore Catalog">Дивитися каталог</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Секція з амбасадором -->
-    <section class="py-20 px-6 bg-zinc-900/20 border-b border-zinc-900">
-        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10 bg-zinc-900/40 border border-zinc-800/80 p-8 rounded-3xl">
-            <div class="w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-zinc-700 shrink-0 shadow-2xl">
-                <img src="1000062003.png" alt="Lumi Mascot" class="w-full h-full object-cover">
-            </div>
-            <div>
-                <span class="text-xs uppercase tracking-widest text-zinc-500 font-semibold" data-uk="Ідентичність бренду" data-en="Brand Identity">Ідентичність бренду</span>
-                <h2 class="text-2xl md:text-3xl font-black tracking-tight mt-1 mb-3" data-uk="Естетика темного міста" data-en="Dark City Aesthetics">Естетика темного міста</h2>
-                <p class="text-zinc-400 text-sm md:text-base leading-relaxed mb-6" data-uk="Lumi Shop — це не просто одяг. Це вайб сучасного кіберпанку та уличного мінімалізму. Ми створюємо речі, які виділяють тебе з натовпу." data-en="Lumi Shop is more than clothing. It's a cyberpunk vibe and urban minimalism. We create pieces that make you stand out from the crowd.">Lumi Shop — це не просто одяг. Це вайб сучасного кіберпанку та уличного мінімалізму. Ми створюємо речі, які виділяють тебе з натовпу.</p>
-                <a href="#catalog" class="text-xs font-bold uppercase tracking-wider text-white border-b border-white pb-1 hover:text-zinc-400 hover:border-zinc-400 transition" data-uk="Перейти до колекції &rarr;" data-en="Go to collection &rarr;">Перейти до колекції &rarr;</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Каталог товарів -->
-    <section id="catalog" class="py-24 px-6 max-w-6xl mx-auto">
-        <div class="flex justify-between items-end mb-12">
-            <div>
-                <p class="text-zinc-500 text-sm uppercase tracking-widest font-semibold mb-2" data-uk="Асортимент" data-en="Assortment">Асортимент</p>
-                <h2 class="text-3xl font-extrabold tracking-tight" data-uk="Популярні позиції" data-en="Popular Items">Популярні позиції</h2>
-            </div>
-            <span class="text-xs text-zinc-500 hidden md:block">Limited Drop</span>
+    <div class="container">
+        <div class="products-grid" id="productGrid">
+            <!-- Товари генеруються динамічно -->
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Товар 1: Худі -->
-            <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-4 flex flex-col justify-between hover:border-zinc-700 transition group">
-                <div>
-                    <div class="bg-zinc-900 h-64 rounded-xl mb-4 overflow-hidden relative flex items-center justify-center p-2">
-                        <img src="1000062003.png" alt="Miyabi Quarter-Zip Hoodie" class="w-full h-full object-contain group-hover:scale-105 transition duration-500">
-                    </div>
-                    <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">Худі</span>
-                    <h3 class="font-bold text-base mt-2 mb-1">Quarter-Zip Hoodie "Miyabi"</h3>
-                    <p class="text-xs text-zinc-400 mb-4" data-uk="Чорна оверсайз худі з вишивкою" data-en="Black oversize embroidered hoodie">Чорна оверсайз худі з вишивкою</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900">
-                    <span class="text-lg font-black">280 zł</span>
-                    <a href="#contact" class="bg-zinc-800 hover:bg-white hover:text-zinc-950 text-white text-xs font-bold px-4 py-2 rounded-lg transition" data-uk="Купити" data-en="Buy">Купити</a>
+        <!-- Футер та контакти -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p class="footer-cta-text" id="footerCta" data-uk="Сподобався сайт? Напиши мені в Telegram або Instagram!" data-en="Liked the site? Write to me on Telegram or Instagram!">Сподобався сайт? Напиши мені в Telegram або Instagram!</p>
+                <div class="social-buttons">
+                    <a href="https://t.me/maxiixw" target="_blank" class="social-btn">Telegram</a>
+                    <a href="https://instagram.com/maxiixw" target="_blank" class="social-btn">Instagram</a>
                 </div>
             </div>
-
-            <!-- Товар 2: Худі -->
-            <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-4 flex flex-col justify-between hover:border-zinc-700 transition group">
-                <div>
-                    <div class="bg-zinc-900 h-64 rounded-xl mb-4 overflow-hidden relative flex items-center justify-center p-2">
-                        <img src="1000062012.png" alt="Samurai White Hoodie" class="w-full h-full object-contain group-hover:scale-105 transition duration-500">
-                    </div>
-                    <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">Худі</span>
-                    <h3 class="font-bold text-base mt-2 mb-1">Oversize Hoodie "Samurai"</h3>
-                    <p class="text-xs text-zinc-400 mb-4" data-uk="Біла худі з принтом самурая" data-en="White hoodie with samurai print">Біла худі з принтом самурая</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900">
-                    <span class="text-lg font-black">290 zł</span>
-                    <a href="#contact" class="bg-zinc-800 hover:bg-white hover:text-zinc-950 text-white text-xs font-bold px-4 py-2 rounded-lg transition" data-uk="Купити" data-en="Buy">Купити</a>
-                </div>
-            </div>
-
-            <!-- Товар 3: Футболки -->
-            <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-4 flex flex-col justify-between hover:border-zinc-700 transition group">
-                <div>
-                    <div class="bg-zinc-900 h-64 rounded-xl mb-4 overflow-hidden relative flex items-center justify-center p-2">
-                        <img src="1000062007.png" alt="Butterflies T-Shirt" class="w-full h-full object-contain group-hover:scale-105 transition duration-500">
-                    </div>
-                    <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">Футболки</span>
-                    <h3 class="font-bold text-base mt-2 mb-1">Heavy T-Shirt "Butterflies"</h3>
-                    <p class="text-xs text-zinc-400 mb-4" data-uk="Чорна футболка з метеликами" data-en="Black t-shirt with butterflies">Чорна футболка з метеликами</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900">
-                    <span class="text-lg font-black">120 zł</span>
-                    <a href="#contact" class="bg-zinc-800 hover:bg-white hover:text-zinc-950 text-white text-xs font-bold px-4 py-2 rounded-lg transition" data-uk="Купити" data-en="Buy">Купити</a>
-                </div>
-            </div>
-
-            <!-- Товар 4: Джинси -->
-            <div class="bg-zinc-900/40 border border-zinc-900 rounded-2xl p-4 flex flex-col justify-between hover:border-zinc-700 transition group">
-                <div>
-                    <div class="bg-zinc-900 h-64 rounded-xl mb-4 overflow-hidden relative flex items-center justify-center p-2">
-                        <img src="1000062009.jpg" alt="Dark Denim Jeans" class="w-full h-full object-contain group-hover:scale-105 transition duration-500">
-                    </div>
-                    <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">Джинси</span>
-                    <h3 class="font-bold text-base mt-2 mb-1">Washed Denim "Structure"</h3>
-                    <p class="text-xs text-zinc-400 mb-4" data-uk="Темні варені оверсайз джинси" data-en="Dark washed oversize denim">Темні варені оверсайз джинси</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900">
-                    <span class="text-lg font-black">260 zł</span>
-                    <a href="#contact" class="bg-zinc-800 hover:bg-white hover:text-zinc-950 text-white text-xs font-bold px-4 py-2 rounded-lg transition" data-uk="Купити" data-en="Buy">Купити</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Про нас -->
-    <section id="about" class="py-20 border-t border-zinc-900 bg-zinc-900/20 px-6">
-        <div class="max-w-3xl mx-auto text-center">
-            <h2 class="text-2xl font-bold mb-4" data-uk="Філософія Lumi" data-en="Lumi Philosophy">Філософія Lumi</h2>
-            <p class="text-zinc-400 text-sm md:text-base leading-relaxed" data-uk="Ми створюємо одяг для тих, хто цінує комфорт, мінімалізм та індивідуальність. Ніяких зайвих деталей — лише чистий дизайн, міцні тканини та абсолютний оверсайз." data-en="We create clothing for those who value comfort, minimalism, and individuality. No extra details — just clean design, durable fabrics, and absolute oversize.">Ми створюємо одяг для тих, хто цінує комфорт, мінімалізм та індивідуальність. Ніяких зайвих деталей — лише чистий дизайн, міцні тканини та абсолютний оверсайз.</p>
-        </div>
-    </section>
-
-    <!-- Контакти / Замовлення -->
-    <section id="contact" class="py-24 px-6 max-w-xl mx-auto text-center">
-        <h2 class="text-3xl font-extrabold mb-4" data-uk="Оформити замовлення" data-en="Place an Order">Оформити замовлення</h2>
-        <p class="text-zinc-400 text-sm mb-8" data-uk="Щоб замовити річ або уточнити свій розмір, пиши нам напряму в Telegram або Instagram." data-en="To order an item or check your size, message us directly on Telegram or Instagram.">Щоб замовити річ або уточнити свій розмір, пиши нам напряму в Telegram або Instagram.</p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white font-bold px-6 py-3.5 rounded-xl transition">Instagram DM</a>
-            <a href="#" class="bg-white hover:bg-zinc-200 text-zinc-950 font-bold px-6 py-3.5 rounded-xl transition" data-uk="Telegram Менеджер" data-en="Telegram Manager">Telegram Менеджер</a>
-        </div>
-    </section>
-
-    <!-- Футер -->
-    <footer class="py-12 border-t border-zinc-900 text-center text-xs text-zinc-600">
-        <p data-uk="&copy; 2026 Lumi Shop. Усі права захищені." data-en="&copy; 2026 Lumi Shop. All rights reserved.">&copy; 2026 Lumi Shop. Усі права захищені.</p>
-    </footer>
-
-    <!-- СТИЛЬНА ПЛАВАЮЧА DOCK-ПАНЕЛЬ ЗНИЗУ -->
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 px-4 py-2 rounded-full flex items-center gap-2 shadow-2xl">
-        <a href="#catalog" class="text-xs text-zinc-200 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-zinc-800 font-medium" data-uk="Усе" data-en="All">Усе</a>
-        <a href="#catalog" class="text-xs text-zinc-400 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-zinc-800" data-uk="Худі" data-en="Hoodies">Худі</a>
-        <a href="#catalog" class="text-xs text-zinc-400 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-zinc-800" data-uk="Джинси" data-en="Jeans">Jeans</a>
-        <a href="#catalog" class="text-xs text-zinc-400 hover:text-white transition-colors px-3 py-1.5 rounded-full hover:bg-zinc-800" data-uk="Футболки" data-en="T-Shirts">Футболки</a>
+            <p class="copyright">&copy; 2026 Lumi Shop. Усі права захищені.</p>
+        </footer>
     </div>
 
-    <!-- JavaScript для перемикання мов -->
+    <!-- Нижня панель навігації -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="filterCategory('all', this)" data-uk="Усе" data-en="All">Усе</button>
+        <button class="nav-item" onclick="filterCategory('hoodie', this)" data-uk="Худі" data-en="Hoodie">Худі</button>
+        <button class="nav-item" onclick="filterCategory('jeans', this)" data-uk="Jeans" data-en="Jeans">Jeans</button>
+        <button class="nav-item" onclick="filterCategory('pants', this)" data-uk="Pants" data-en="Pants">Pants</button>
+        <button class="nav-item" onclick="filterCategory('tshirt', this)" data-uk="Футболки" data-en="T-Shirts">Футболки</button>
+    </nav>
+
     <script>
-        function setLanguage(lang) {
-            const btnUk = document.getElementById('btn-uk');
-            const btnEn = document.getElementById('btn-en');
-
-            if (lang === 'uk') {
-                btnUk.className = "px-3 py-1 rounded-full bg-white text-zinc-950 transition";
-                btnEn.className = "px-3 py-1 rounded-full text-zinc-400 hover:text-white transition";
-            } else {
-                btnEn.className = "px-3 py-1 rounded-full bg-white text-zinc-950 transition";
-                btnUk.className = "px-3 py-1 rounded-full text-zinc-400 hover:text-white transition";
+        const products = [
+            {
+                id: 1,
+                category: 'hoodie',
+                badgeUk: 'Hoodie',
+                badgeEn: 'Hoodie',
+                title: 'Oversize Black Hoodie',
+                descUk: 'Масивний чорний худі оверсайз крою з щільного трикотажу',
+                descEn: 'Heavyweight oversized black hoodie',
+                price: '280 zł',
+                image: 'hoodie-1.jpg'
+            },
+            {
+                id: 2,
+                category: 'hoodie',
+                badgeUk: 'Hoodie',
+                badgeEn: 'Hoodie',
+                title: 'Minimalist Dark Hoodie',
+                descUk: 'Лаконічний худі вільного крою для повсякденних луків',
+                descEn: 'Minimalist relaxed fit dark hoodie',
+                price: '260 zł',
+                image: 'hoodie-2.jpg'
+            },
+            {
+                id: 3,
+                category: 'hoodie',
+                badgeUk: 'Hoodie',
+                badgeEn: 'Hoodie',
+                title: 'Graphic Print Hoodie',
+                descUk: 'Худі з яскравим акцентним принтом на спині',
+                descEn: 'Graphic print oversized hoodie',
+                price: '290 zł',
+                image: 'hoodie-3.jpg'
+            },
+            {
+                id: 4,
+                category: 'hoodie',
+                badgeUk: 'Hoodie',
+                badgeEn: 'Hoodie',
+                title: 'Dark Aesthetic Hoodie',
+                descUk: 'Базовий утеплений худі в глибоких темних відтінках',
+                descEn: 'Basic warm hoodie in deep dark tones',
+                price: '250 zł',
+                image: 'hoodie-4.jpg'
+            },
+            {
+                id: 5,
+                category: 'jeans',
+                badgeUk: 'Jeans',
+                badgeEn: 'Jeans',
+                title: 'Vintage Wide Denim',
+                descUk: 'Широкі вінтажні джинси вільного крою з ефектом потертості',
+                descEn: 'Vintage wide-leg denim jeans with subtle wash',
+                price: '270 zł',
+                image: 'jeansy.jpg'
+            },
+            {
+                id: 6,
+                category: 'jeans',
+                badgeUk: 'Jeans',
+                badgeEn: 'Jeans',
+                title: 'Cargo Street Pants',
+                descUk: 'Зручні штани карго з кишенями в міському стилі',
+                descEn: 'Functional streetwear cargo pants',
+                price: '260 zł',
+                image: 'jeansy-2.jpg'
+            },
+            {
+                id: 7,
+                category: 'pants',
+                badgeUk: 'Pants',
+                badgeEn: 'Pants',
+                title: 'Hello Kitty Print Pants',
+                descUk: 'Стильні принтовані штани вільного крою',
+                descEn: 'Relaxed fit printed statement pants',
+                price: '240 zł',
+                image: 'pants-1.jpg'
+            },
+            {
+                id: 8,
+                category: 'tshirt',
+                badgeUk: 'T-Shirt',
+                badgeEn: 'T-Shirt',
+                title: 'Underground Tee',
+                descUk: 'Базова чорна футболка оверсайз з щільної бавовни',
+                descEn: 'Heavy cotton oversized black t-shirt',
+                price: '140 zł',
+                image: 'tshirt-1.png'
+            },
+            {
+                id: 9,
+                category: 'tshirt',
+                badgeUk: 'T-Shirt',
+                badgeEn: 'T-Shirt',
+                title: 'Graphic Street Tee',
+                descUk: 'Футболка з лаконічним графічним принтом спереду',
+                descEn: 'Minimalist graphic streetwear t-shirt',
+                price: '150 zł',
+                image: 'tshirt-2.jpg'
+            },
+            {
+                id: 10,
+                category: 'tshirt',
+                badgeUk: 'T-Shirt',
+                badgeEn: 'T-Shirt',
+                title: 'Dark Vibe Tee',
+                descUk: 'Стильна футболка вільного крою для повсякденного гардероба',
+                descEn: 'Casual relaxed fit dark vibe t-shirt',
+                price: '140 zł',
+                image: 'tshirt-3.jpg'
             }
+        ];
 
-            const elements = document.querySelectorAll('[data-uk]');
-            elements.forEach(el => {
-                if (lang === 'en') {
-                    el.innerHTML = el.getAttribute('data-en');
-                } else {
-                    el.innerHTML = el.getAttribute('data-uk');
-                }
+        let currentLang = 'uk';
+        let currentCategory = 'all';
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            const filtered = currentCategory === 'all' 
+                ? products 
+                : products.filter(p => p.category === currentCategory);
+
+            filtered.forEach((p, index) => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.style.animationDelay = `${index * 0.08}s`;
+                
+                const badgeText = currentLang === 'uk' ? p.badgeUk : p.badgeEn;
+                const descText = currentLang === 'uk' ? p.descUk : p.descEn;
+                const btnText = currentLang === 'uk' ? 'Купити' : 'Buy';
+
+                card.innerHTML = `
+                    <div class="product-image-container">
+                        <img src="${p.image}" alt="${p.title}" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <span class="badge">${badgeText}</span>
+                        <h2 class="product-title">${p.title}</h2>
+                        <p class="product-desc">${descText}</p>
+                        <div class="product-footer">
+                            <span class="price">${p.price}</span>
+                            <button class="buy-btn" onclick="openOrder('${p.title}')">${btnText}</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(category, element) {
+            currentCategory = category;
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            renderProducts();
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.nav-item').forEach(btn => {
+                btn.textContent = btn.getAttribute(`data-${lang}`);
             });
 
-            document.documentElement.lang = lang;
+            const footerCta = document.getElementById('footerCta');
+            footerCta.textContent = footerCta.getAttribute(`data-${lang}`);
+
+            if (lang === 'en') {
+                document.getElementById('aiDisclaimer').textContent = '⚠️ Note: All items and designs on the site are exclusive AI-generated concepts.';
+            } else {
+                document.getElementById('aiDisclaimer').textContent = '⚠️ Увага: Усі речі та дизайни на сайті є ексклюзивними концептами, згенерованими штучним інтелектом.';
+            }
+
+            renderProducts();
         }
+
+        function openOrder(productName) {
+            const text = currentLang === 'uk' 
+                ? `Привіт! Хочу замовити ${productName}` 
+                : `Hello! I want to order ${productName}`;
+            window.open(`https://t.me/maxiixw?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        renderProducts();
     </script>
 </body>
 </html>
